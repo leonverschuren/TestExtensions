@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestMatch.Tests", "BestMatch.Tests\BestMatch.Tests.csproj", "{B08617E4-86FF-4344-AFD2-C1F7FBD93256}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestExtensions.Tests", "TestExtensions.Tests\TestExtensions.Tests.csproj", "{B08617E4-86FF-4344-AFD2-C1F7FBD93256}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestMatch", "BestMatch\BestMatch.csproj", "{AC8E3819-1535-4CC6-8ABC-DE7CD58BFAA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestExtensions", "TestExtensions\TestExtensions.csproj", "{AC8E3819-1535-4CC6-8ABC-DE7CD58BFAA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

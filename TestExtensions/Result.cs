@@ -1,4 +1,4 @@
-namespace BestMatch
+namespace TestExtensions
 {
     public class Result
     {

@@ -1,4 +1,4 @@
-namespace BestMatch.Tests
+namespace TestExtensions.Tests
 {
     public class Data
     {
