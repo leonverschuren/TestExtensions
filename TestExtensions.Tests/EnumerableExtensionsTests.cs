@@ -39,5 +39,24 @@ namespace TestExtensions.Tests
             Assert.IsFalse(result.IsEqual);
             Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", result.Message);
         }
+
+        [TestMethod]
+        public void AnyBestMatch_MultiplePropertiesComparedWithProvidedObject_ReturnsComparedPropertyNameWithActualAndExpectedValue()
+        {
+            // Arrange
+            var expected = new Data { Title = "MyTitle", Amount = 1 };
+
+            var data = new List<Data>
+            {
+                new() { Title = "MyTitle", Amount = 2 }
+            };
+
+            // Act
+            Result result = data.AnyBestMatch(d => d.Title == expected.Title && d.Amount == expected.Amount);
+
+            // Assert
+            Assert.IsFalse(result.IsEqual);
+            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", result.Message);
+        }
     }
 }

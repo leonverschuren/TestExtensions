@@ -13,12 +13,12 @@ namespace TestExtensions
 
         internal static Result CreateEqual()
         {
-            return new Result(true, string.Empty);
+            return new(true, string.Empty);
         }
 
         internal static Result CreateNotEqual(string message)
         {
-            return new Result(false, message);
+            return new(false, message);
         }
     }
 }

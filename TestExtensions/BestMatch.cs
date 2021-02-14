@@ -34,7 +34,7 @@ namespace TestExtensions
         private string GetMessage()
         {
             var expressions = ExpressionCollector.Collect(_predicate.Body).ToArray();
-            var wrappers = expressions.Select(e => new ExpressionWrapper<T>(_predicate, e)).ToArray();
+            var wrappers = expressions.Select(e => new ExpressionWrapper<T>(_predicate.Parameters, e)).ToArray();
 
             foreach (T source in _source)
             {
