@@ -7,12 +7,12 @@ namespace TestExtensions
 {
     internal class BestMatch<T>
     {
-        private readonly IEnumerable<T> _source;
+        private readonly IEnumerable<T> _sources;
         private readonly Expression<Func<T, bool>> _predicate;
 
-        public BestMatch(IEnumerable<T> source, Expression<Func<T, bool>> predicate)
+        public BestMatch(IEnumerable<T> sources, Expression<Func<T, bool>> predicate)
         {
-            _source = source;
+            _sources = sources;
             _predicate = predicate;
         }
 
@@ -29,27 +29,19 @@ namespace TestExtensions
             return Result.CreateNotEqual(message);
         }
 
-        private bool IsMatch() => _source.Any(s => _predicate.Compile().Invoke(s));
+        private bool IsMatch() => _sources.Any(s => _predicate.Compile().Invoke(s));
 
         private string GetMessage()
         {
-            var expressions = ExpressionCollector.Collect(_predicate.Body).ToArray();
-            var wrappers = expressions.Select(e => new ExpressionWrapper<T>(_predicate.Parameters, e)).ToArray();
+            ExpressionWrapper<T>[] wrappers = ExpressionCollector
+                .Collect(_predicate.Body)
+                .Select(e => new ExpressionWrapper<T>(_predicate.Parameters, e))
+                .ToArray();
 
-            foreach (T source in _source)
-            {
-                foreach (var wrapper in wrappers)
-                {
-                    bool evaluation = wrapper.Evaluate(source);
+            IEnumerable<ObjectWrapper<T>> objectWrappers = _sources.Select(s => new ObjectWrapper<T>(s, wrappers));
+            ObjectWrapper<T> bestMatch = objectWrappers.OrderByDescending(o => o.MatchCount).First();
 
-                    if (!evaluation)
-                    {
-                        return $"Expected '{wrapper.GetComparedMemberName()}' to be '{wrapper.GetExpectedValue()}', actual '{wrapper.GetActualValue(source)}'";
-                    }
-                }
-            }
-
-            return string.Empty;
+            return bestMatch.GetMessage();
         }
     }
 }
