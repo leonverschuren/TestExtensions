@@ -3,6 +3,10 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>9</LangVersion>
+        <PackageId>LeonVerschuren.TestExtensions</PackageId>
+        <Authors>Leon Verschuren</Authors>
+        <PackageDescription>Some extensions that make unit testing easier.</PackageDescription>
+        <RepositoryUrl>https://github.com/leonverschuren/TestExtensions</RepositoryUrl>
     </PropertyGroup>
 
 </Project>
