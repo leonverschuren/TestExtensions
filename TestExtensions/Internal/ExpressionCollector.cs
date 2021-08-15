@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace TestExtensions
+namespace TestExtensions.Internal
 {
-    public class ExpressionCollector
+    internal class ExpressionCollector
     {
         private readonly ICollection<BinaryExpression> _expressions;
 

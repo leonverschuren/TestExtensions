@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TestExtensions
+namespace TestExtensions.Internal
 {
     internal class ObjectWrapper<T>
     {

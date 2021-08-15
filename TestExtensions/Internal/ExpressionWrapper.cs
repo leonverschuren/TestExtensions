@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace TestExtensions
+namespace TestExtensions.Internal
 {
     internal class ExpressionWrapper<T>
     {

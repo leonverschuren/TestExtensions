@@ -8,7 +8,7 @@ namespace TestExtensions.Tests
     public class EnumerableExtensionsTests
     {
         [TestMethod]
-        public void AnyBestMatch_SinglePropertyComparedWithConstant_ReturnsComparedPropertyNameWithActualAndExpectedValue()
+        public void MatchAny_SinglePropertyComparedWithConstant_ReturnsComparedPropertyNameWithActualAndExpectedValue()
         {
             // Arrange
             var data = new List<Data>
@@ -17,15 +17,15 @@ namespace TestExtensions.Tests
             };
 
             // Act
-            Result result = data.AnyBestMatch(d => d.Title == "MyTitle");
+            MatchAnyResult matchAnyResult = data.MatchAny(d => d.Title == "MyTitle");
 
             // Assert
-            Assert.IsFalse(result.IsEqual);
-            Assert.AreEqual("Expected 'Title' to be 'MyTitle', actual 'OtherTitle'", result.Message);
+            Assert.IsFalse(matchAnyResult.IsMatch);
+            Assert.AreEqual("Expected 'Title' to be 'MyTitle', actual 'OtherTitle'", matchAnyResult.Message);
         }
 
         [TestMethod]
-        public void AnyBestMatch_MultiplePropertiesComparedWithConstant_ReturnsComparedPropertyNameWithActualAndExpectedValue()
+        public void MatchAny_MultiplePropertiesComparedWithConstant_ReturnsComparedPropertyNameWithActualAndExpectedValue()
         {
             // Arrange
             var data = new List<Data>
@@ -34,15 +34,15 @@ namespace TestExtensions.Tests
             };
 
             // Act
-            Result result = data.AnyBestMatch(d => d.Title == "MyTitle" && d.Amount == 1);
+            MatchAnyResult matchAnyResult = data.MatchAny(d => d.Title == "MyTitle" && d.Amount == 1);
 
             // Assert
-            Assert.IsFalse(result.IsEqual);
-            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", result.Message);
+            Assert.IsFalse(matchAnyResult.IsMatch);
+            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", matchAnyResult.Message);
         }
 
         [TestMethod]
-        public void AnyBestMatch_MultiplePropertiesComparedWithProvidedObject_ReturnsComparedPropertyNameWithActualAndExpectedValue()
+        public void MatchAny_MultiplePropertiesComparedWithProvidedObject_ReturnsComparedPropertyNameWithActualAndExpectedValue()
         {
             // Arrange
             var expected = new Data { Title = "MyTitle", Amount = 1 };
@@ -53,15 +53,15 @@ namespace TestExtensions.Tests
             };
 
             // Act
-            Result result = data.AnyBestMatch(d => d.Title == expected.Title && d.Amount == expected.Amount);
+            MatchAnyResult matchAnyResult = data.MatchAny(d => d.Title == expected.Title && d.Amount == expected.Amount);
 
             // Assert
-            Assert.IsFalse(result.IsEqual);
-            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", result.Message);
+            Assert.IsFalse(matchAnyResult.IsMatch);
+            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", matchAnyResult.Message);
         }
 
         [TestMethod]
-        public void AnyBestMatch_MultipleObjectsInCollectionOneMatching_ReturnsIsEqualTrueAndMessageIsEmptyString()
+        public void MatchAny_MultipleObjectsInCollectionOneMatching_ReturnsIsMatchTrueAndMessageIsEmptyString()
         {
             // Arrange
             var expected = new Data { Title = "MyTitle", Amount = 1 };
@@ -73,15 +73,15 @@ namespace TestExtensions.Tests
             };
 
             // Act
-            Result result = data.AnyBestMatch(d => d.Title == expected.Title && d.Amount == expected.Amount);
+            MatchAnyResult matchAnyResult = data.MatchAny(d => d.Title == expected.Title && d.Amount == expected.Amount);
 
             // Assert
-            Assert.IsTrue(result.IsEqual);
-            Assert.AreEqual(string.Empty, result.Message);
+            Assert.IsTrue(matchAnyResult.IsMatch);
+            Assert.AreEqual(string.Empty, matchAnyResult.Message);
         }
 
         [TestMethod]
-        public void AnyBestMatch_MultipleObjectsInCollectionNoneMatching_ReturnsObjectWithMostMatchingProperties()
+        public void MatchAny_MultipleObjectsInCollectionNoneMatching_ReturnsObjectWithMostMatchingProperties()
         {
             // Arrange
             var expected = new Data { Title = "MyTitle", Amount = 1, Published = DateTime.Today };
@@ -94,11 +94,11 @@ namespace TestExtensions.Tests
             };
 
             // Act
-            Result result = data.AnyBestMatch(d => d.Title == expected.Title && d.Amount == expected.Amount && d.Published == expected.Published);
+            MatchAnyResult matchAnyResult = data.MatchAny(d => d.Title == expected.Title && d.Amount == expected.Amount && d.Published == expected.Published);
 
             // Assert
-            Assert.IsFalse(result.IsEqual);
-            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", result.Message);
+            Assert.IsFalse(matchAnyResult.IsMatch);
+            Assert.AreEqual("Expected 'Amount' to be '1', actual '2'", matchAnyResult.Message);
         }
     }
 }
