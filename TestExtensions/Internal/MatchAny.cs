@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace TestExtensions
+namespace TestExtensions.Internal
 {
-    internal class BestMatch<T>
+    internal class MatchAny<T>
     {
         private readonly IEnumerable<T> _sources;
         private readonly Expression<Func<T, bool>> _predicate;
 
-        public BestMatch(IEnumerable<T> sources, Expression<Func<T, bool>> predicate)
+        public MatchAny(IEnumerable<T> sources, Expression<Func<T, bool>> predicate)
         {
             _sources = sources;
             _predicate = predicate;
         }
 
-        public Result GetResult()
+        public MatchAnyResult GetResult()
         {
             bool isMatch = IsMatch();
             if (isMatch)
             {
-                return Result.CreateEqual();
+                return MatchAnyResult.CreateMatch();
             }
 
             string message = GetMessage();
 
-            return Result.CreateNotEqual(message);
+            return MatchAnyResult.CreateNoMatch(message);
         }
 
         private bool IsMatch() => _sources.Any(s => _predicate.Compile().Invoke(s));
